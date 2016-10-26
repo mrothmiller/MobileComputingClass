@@ -36,13 +36,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.maurice.exsqueezeme.R;import java.util.ArrayList;
+import java.util.ArrayList;
 
 /**
  * Activity for scanning and displaying available Bluetooth LE devices.
  */
 public class DeviceScanActivity extends ListActivity {
-    private LeDeviceListAdapter mLeDeviceListAdapter;
+    /*private*/ LeDeviceListAdapter mLeDeviceListAdapter;
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
     private Handler mHandler;
@@ -54,7 +54,8 @@ public class DeviceScanActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle(R.string.title_devices);
+
+//        getActionBar().setTitle(R.string.title_devices);
         mHandler = new Handler();
 
         // Use this check to determine whether BLE is supported on the device.  Then you can
@@ -80,15 +81,15 @@ public class DeviceScanActivity extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         if (!mScanning) {
-            menu.findItem(R.id.menu_stop).setVisible(false);
-            menu.findItem(R.id.menu_scan).setVisible(true);
-            menu.findItem(R.id.menu_refresh).setActionView(null);
+            menu.findItem(R.id.menuStop).setVisible(false);
+            menu.findItem(R.id.menuScan).setVisible(true);
+            menu.findItem(R.id.menuRefresh).setActionView(null);
         } else {
-            menu.findItem(R.id.menu_stop).setVisible(true);
-            menu.findItem(R.id.menu_scan).setVisible(false);
-            menu.findItem(R.id.menu_refresh).setActionView(
+            menu.findItem(R.id.menuStop).setVisible(true);
+            menu.findItem(R.id.menuScan).setVisible(false);
+            menu.findItem(R.id.menuRefresh).setActionView(
                     R.layout.actionbar_indeterminate_progress);
         }
         return true;
@@ -97,11 +98,11 @@ public class DeviceScanActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_scan:
+            case R.id.menuScan:
                 mLeDeviceListAdapter.clear();
                 scanLeDevice(true);
                 break;
-            case R.id.menu_stop:
+            case R.id.menuStop:
                 scanLeDevice(false);
                 break;
         }
@@ -138,7 +139,7 @@ public class DeviceScanActivity extends ListActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         scanLeDevice(false);
         mLeDeviceListAdapter.clear();
@@ -249,17 +250,17 @@ public class DeviceScanActivity extends ListActivity {
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
 
-        @Override
-        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            runOnUiThread(new Runnable() {
                 @Override
-                public void run() {
-                    mLeDeviceListAdapter.addDevice(device);
-                    mLeDeviceListAdapter.notifyDataSetChanged();
+                public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLeDeviceListAdapter.addDevice(device);
+                            mLeDeviceListAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
-            });
-        }
-    };
+            };
 
     static class ViewHolder {
         TextView deviceName;

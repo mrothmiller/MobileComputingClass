@@ -15,10 +15,12 @@
         android:text="Settings Test"/>
 
     <Button
-        android:text="Sync"
+        android:text="Scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/syncButton" />
+        android:id="@+id/BTN_Scan"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="0dp"
+        android:onClick="scanForDevices" />
 </RelativeLayout>

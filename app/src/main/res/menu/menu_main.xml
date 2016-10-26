@@ -2,9 +2,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.maurice.exsqueezeme.MainActivity">
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Scan"
+        android:orderInCategory="101"
+        android:id="@+id/menuScan" />
+    <item
+        android:title="Stop"
+        android:orderInCategory="102"
+        android:id="@+id/menuStop"
+        android:visible="false" />
+    <item
+        android:title="Refresh"
+        android:orderInCategory="103"
+        android:id="@+id/menuRefresh" />
 </menu>

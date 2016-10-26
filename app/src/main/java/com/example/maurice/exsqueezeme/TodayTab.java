@@ -18,17 +18,20 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 public class TodayTab extends Fragment {
 
     TextView TV_currentGoal;
-    EditText ET_currentRep;
+    TextView TV_currentRep;
     int docGoal;
 //    TodayTab tt = new TodayTab();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View todayView = inflater.inflate(R.layout.fragment_today, container, false);
-        TextView TV_currentGoal = (TextView) todayView.findViewById(R.id.currentGoal);
+        TextView TV_currentGoal = (TextView) todayView.findViewById(R.id.TV_currentGoal);
 //        TV_currentGoal.setText(tt.getGoal());
-//        ET_currentRep = (EditText) todayView.findViewById(R.id.currentRep);
+//        TV_currentRep = (TextView) todayView.findViewById(R.id.currentRep);
+        Button BTN_sync = (Button) todayView.findViewById(R.id.BTN_Sync);
+        Button BTN_save = (Button) todayView.findViewById(R.id.BTN_Save);
         return todayView;
+
     }
 
     //Create the method that goes and grabs the goals for the patient
@@ -47,5 +50,15 @@ public class TodayTab extends Fragment {
          }
       return docGoal;
     }
+
+    public void syncData(View v)
+    {
+
+    }
+    public void saveData(View v)
+    {
+
+    }
+
 
 }

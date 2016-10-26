@@ -10,29 +10,77 @@
 
 
     <TextView
-        android:id="@+id/currentGoal"
+        android:id="@+id/TV_currentGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/currentRep"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="100"
+        android:layout_marginEnd="14dp"
+        android:layout_alignBaseline="@+id/TV_goal"
+        android:layout_alignBottom="@+id/TV_goal"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Goal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:text="Goal:"
         android:layout_marginRight="50dp"
-        android:layout_marginEnd="50dp" />
+        android:id="@+id/TV_goal"
+        android:layout_marginTop="18dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/TV_currentGoal"
+        android:layout_marginEnd="0dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TV_repsCompleted"
+        android:text="Reps Completed"
+        android:layout_below="@+id/TV_currentRep"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="40dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/TV_currentRep"
+        android:textSize="200dp"
+        android:text="100"
+        android:textAlignment="textEnd"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/TV_currentGoal"
+        android:layout_alignParentEnd="true" />
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--&lt;!&ndash;android:layout_alignBelow="@+id/TV_repsCompleted"&ndash;&gt;-->
+        <!--android:layout_alignParentRight="false"-->
+        <!--android:layout_alignParentTop="false"-->
+        <!--android:layout_below="@+id/TV_repsCompleted"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+    <Button
+        android:text="Save"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="19dp"
+        android:id="@+id/BTN_Save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Sync"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="12dp"
+        android:id="@+id/BTN_Sync"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
