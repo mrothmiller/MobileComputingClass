@@ -29,4 +29,8 @@
           android:title="@string/menu_disconnect"
           android:orderInCategory="101"
           app:showAsAction="ifRoom|withText"/>
+    <item android:id="@+id/menu_home"
+          android:title="Home"
+          android:orderInCategory="101"
+          app:showAsAction="ifRoom|withText"/>
 </menu>

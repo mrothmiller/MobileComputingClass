@@ -20,4 +20,9 @@
         android:title="Refresh"
         android:orderInCategory="103"
         android:id="@+id/menuRefresh" />
+
+    <item
+        android:title="Home"
+        android:orderInCategory="103"
+        android:id="@+id/menuHome" />
 </menu>

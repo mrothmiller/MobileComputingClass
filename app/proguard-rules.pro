@@ -15,3 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+#Added for the Android Graph
+-keep class com.androidplot.** { *; }

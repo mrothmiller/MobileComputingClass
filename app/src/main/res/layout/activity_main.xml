@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
@@ -43,7 +42,59 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.v7.widget.ScrollingTabContainerView.TabView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_temperature"
+            android:layout_column="0"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_column="2"
+            android:id="@+id/text_pressure"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_column="0"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:text="Ambient Temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_column="2"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:text="Barometric Pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text_humidity"
+            android:layout_column="1"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_column="1"
+            android:textSize="1dp"
+            android:gravity="center_horizontal"
+            android:text="Humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        </android.support.v7.widget.ScrollingTabContainerView.TabView>
+
+    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
 <!--<RelativeLayout-->
     <!--android:id="@+id/main_layout"-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->

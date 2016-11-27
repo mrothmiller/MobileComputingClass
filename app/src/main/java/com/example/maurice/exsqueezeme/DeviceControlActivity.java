@@ -17,6 +17,8 @@
 package com.example.maurice.exsqueezeme;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -35,7 +37,7 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.maurice.exsqueezeme.R;import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,6 +63,7 @@ public class DeviceControlActivity extends Activity {
             new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
     private boolean mConnected = false;
     private BluetoothGattCharacteristic mNotifyCharacteristic;
+    private BluetoothGatt mBluetoothGatt;
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
@@ -91,10 +94,36 @@ public class DeviceControlActivity extends Activity {
     // ACTION_GATT_SERVICES_DISCOVERED: discovered GATT services.
     // ACTION_DATA_AVAILABLE: received data from the device.  This can be a result of read
     //                        or notification operations.
+
+
     private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
+
+            String action = intent.getAction();
+
+            if(BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice bd = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Log.d(TAG, "Found device: " + bd.getName() + " : " + bd.getAddress());
+            }
+
+            if (action.equals(BluetoothDevice.ACTION_PAIRING_REQUEST)) {
+                try {
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    int pin=intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY", 121212);
+                    //the pin in case you need to accept for an specific pin
+                    Log.d(TAG, "Start Auto Pairing. PIN = " + intent.getIntExtra("android.bluetooth.device.extra.PAIRING_KEY",121212));
+                    byte[] pinBytes;
+                    pinBytes = (""+pin).getBytes("UTF-8");
+                    device.setPin(pinBytes);
+                    //setPairing confirmation if neeeded
+                    device.setPairingConfirmation(true);
+                } catch (Exception e) {
+                    Log.e(TAG, "Error occurs when trying to auto pair");
+                    e.printStackTrace();
+                }
+            }
+//            final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
                 updateConnectionState(R.string.connected);
@@ -168,8 +197,8 @@ public class DeviceControlActivity extends Activity {
         mConnectionState = (TextView) findViewById(R.id.connection_state);
         mDataField = (TextView) findViewById(R.id.data_value);
 
-        getActionBar().setTitle(mDeviceName);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setTitle(mDeviceName);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
@@ -212,6 +241,7 @@ public class DeviceControlActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        View v;
         switch(item.getItemId()) {
             case R.id.menu_connect:
                 mBluetoothLeService.connect(mDeviceAddress);
@@ -222,6 +252,10 @@ public class DeviceControlActivity extends Activity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.menu_home:
+                v = new View(this);
+                Intent intentHome = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intentHome);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -306,4 +340,31 @@ public class DeviceControlActivity extends Activity {
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         return intentFilter;
     }
+
+//    public boolean writeCharacteristic(String v){
+//
+//        //check mBluetoothGatt is available
+//        if (mBluetoothGatt == null) {
+//            Log.e(TAG, "lost connection");
+//            return false;
+//        }
+//        BluetoothGattService Service = mBluetoothGatt.getService(your Services);
+//        if (Service == null) {
+//            Log.e(TAG, "service not found!");
+//            return false;
+//        }
+//        BluetoothGattCharacteristic charac = Service
+//                .getCharacteristic(your characteristic);
+//        if (charac == null) {
+//            Log.e(TAG, "char not found!");
+//            return false;
+//        }
+//
+//        byte[] value = new byte[1];
+//        value[0] = (byte) (21 & 0xFF);
+//        charac.setValue(value);
+//        boolean status = mBluetoothGatt.writeCharacteristic(charac);
+//        return status;
+//    }
+
 }
